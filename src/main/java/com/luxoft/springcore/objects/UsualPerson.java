@@ -1,6 +1,14 @@
 package com.luxoft.springcore.objects;
 
+import com.luxoft.springcore.events.TravelEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+
 public class UsualPerson implements Person {
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
+
     private int id;
 
     private String name;
@@ -36,14 +44,17 @@ public class UsualPerson implements Person {
         return city;
     }
 
-    public void setCountry(City city) {
+    @Override
+    public void setCity(City city) {
         this.city = city;
     }
-    
+
+    @Override
     public int getDistanceTravelled() {
 		return distanceTravelled;
 	}
-    
+
+	@Override
     public void setDistanceTravelled(int distanceTravelled) {
 		this.distanceTravelled = distanceTravelled;
 	}
@@ -67,7 +78,8 @@ public class UsualPerson implements Person {
     
     
     public void travel(City source, City destination) {
-    	
+        this.setCity(source);
+        applicationEventPublisher.publishEvent(new TravelEvent(this, destination));
     }
 
     public String toString() {

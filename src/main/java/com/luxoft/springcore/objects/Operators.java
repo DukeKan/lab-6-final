@@ -1,9 +1,12 @@
 package com.luxoft.springcore.objects;
 
+import org.springframework.stereotype.Component;
+
+@Component("operatorsBean")
 public class Operators {
 	
-	private boolean ageComparisonTest;
-	private boolean distanceComparisonTest;
+	private boolean ageComparisonTest=true;
+	private boolean distanceComparisonTest=true;
 	
 	public boolean isAgeComparisonTest() {
 		return ageComparisonTest;
